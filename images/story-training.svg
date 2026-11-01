@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 560" width="360" height="560" preserveAspectRatio="xMidYMid slice"><defs>
+  <linearGradient id="gwall" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#ebe7e2"/></linearGradient>
+  <linearGradient id="gfloor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d6d0c8"/><stop offset="1" stop-color="#b8b0a6"/></linearGradient>
+  <linearGradient id="gsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6f0f0"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
+  <linearGradient id="gbeam" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+  <radialGradient id="gshadow"><stop offset="0" stop-color="#142033" stop-opacity=".18"/><stop offset="1" stop-color="#142033" stop-opacity="0"/></radialGradient>
+</defs>
+    <rect width="360" height="450" fill="url(#gwall)"/><rect y="450" width="360" height="110" fill="url(#gfloor)"/>
+    <rect x="200" y="110" width="130" height="180" fill="#ffffff" stroke="#d6d0c8" stroke-width="6"/>
+    <rect x="216" y="134" width="70" height="8" rx="4" fill="#1d2b44"/><rect x="216" y="156" width="96" height="6" rx="3" fill="#4f8a8b"/><rect x="216" y="172" width="80" height="6" rx="3" fill="#4f8a8b"/><rect x="216" y="188" width="90" height="6" rx="3" fill="#4f8a8b"/>
+    <path d="M210 290 L196 450 M320 290 L334 450" stroke="#8c857d" stroke-width="6"/>
+    <ellipse cx="130" cy="452" rx="80" ry="14.399999999999999" fill="url(#gshadow)"/>
+    <g transform="translate(130 470) scale(1)">
+    <rect x="-30" y="-140" width="26" height="140" rx="10" fill="#142033"/><rect x="4" y="-140" width="26" height="140" rx="10" fill="#142033"/>
+    <rect x="-34" y="-6" width="32" height="10" rx="5" fill="#142033"/><rect x="2" y="-6" width="32" height="10" rx="5" fill="#142033"/>
+    <path d="M-46 -130 L-42 -236 C-40 -252 -24 -260 0 -260 C24 -260 40 -252 42 -236 L46 -130 Z" fill="#8c857d"/>
+    <path d="M-12 -258 L0 -236 L12 -258 Z" fill="#ffffff"/>
+    <rect x="-9" y="-276" width="18" height="20" fill="#e9c8ab"/>
+    <path d="M-30 -300 C-34 -270 -32 -246 -24 -236 L24 -236 C32 -246 34 -270 30 -300 Z" fill="#6b4a35"/>
+    <circle cx="0" cy="-300" r="28" fill="#e9c8ab"/>
+    <path d="M-29 -302 C-30 -330 -10 -338 2 -337 C22 -336 32 -322 29 -300 C20 -318 -10 -322 -29 -302Z" fill="#6b4a35"/>
+    <path d="M-40 -232 C-48 -190 -48 -160 -44 -130" stroke="#8c857d" stroke-width="22" stroke-linecap="round" fill="none"/><circle cx="-44" cy="-124" r="11" fill="#e9c8ab"/><path d="M40 -232 C70 -250 96 -268 118 -290" stroke="#8c857d" stroke-width="22" stroke-linecap="round" fill="none"/><circle cx="120" cy="-292" r="11" fill="#e9c8ab"/></g></svg>
