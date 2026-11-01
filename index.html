@@ -3,269 +3,209 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DGK AB: where strategy meets everyday operations</title>
+  <title>DGK AB: management consulting and leadership development</title>
   <meta name="description" content="DGK AB is an independent management consulting and leadership development company in Sweden, helping retail, automotive and service businesses turn insight into measurable results.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=2">
 </head>
 <body>
-  <header class="site-header" data-section="header">
-    <div class="wrap header-row">
+  <!-- 0. Announcement bar -->
+  <div class="topbar" data-section="banner">
+    <p>Let's talk about your next step <a href="#contact">Book a call <span aria-hidden="true">↗</span></a></p>
+    <button class="topbar-close" aria-label="Dismiss announcement">×</button>
+  </div>
+
+  <!-- 1. Floating pill header + menu -->
+  <header class="pill-header" data-section="header">
+    <div class="pill">
       <a class="logo" href="#top"><span class="logo-mark" aria-hidden="true"></span>DGK AB</a>
-      <nav class="main-nav" aria-label="Main">
-        <a href="#services" data-tab-link="leaders">Leadership</a>
-        <a href="#services" data-tab-link="organisations">Business performance</a>
-        <a href="#industries">Industries</a>
-        <a href="#about">About</a>
-      </nav>
-      <div class="header-actions">
-        <a class="btn btn-ghost" href="#contact">Contact</a>
-        <a class="btn" href="#contact">Book a call</a>
-        <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
-          <span></span><span></span>
-        </button>
-      </div>
+      <span class="pill-label" aria-live="polite">Home</span>
+      <button class="menu-btn" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span></span><span></span></button>
+      <span class="pill-progress" aria-hidden="true"></span>
     </div>
-    <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile" hidden>
-      <a href="#services" data-tab-link="leaders">Leadership</a>
-      <a href="#services" data-tab-link="organisations">Business performance</a>
+    <nav id="menu" class="menu" aria-label="Main" hidden>
+      <a href="#top">Home</a>
+      <a href="#services">Services</a>
+      <a href="#approach">Approach</a>
       <a href="#industries">Industries</a>
-      <a href="#about">About</a>
-      <a class="btn" href="#contact">Book a call</a>
+      <a href="#insights">Insights</a>
+      <a href="#contact">Contact</a>
     </nav>
   </header>
 
   <main id="top">
-    <!-- 1. Hero -->
-    <section class="hero" data-section="hero">
+    <!-- 2. Hero: full-bleed picture, oversized headline -->
+    <section class="hero" data-section="hero" data-label="Home">
+      <img class="hero-img" src="images/hero-office.svg" alt="Illustration: a consultant leads a workshop with a management team in a bright office" width="1600" height="900">
+      <div class="hero-copy">
+        <p class="hero-kicker">DGK AB is an independent consultancy in Sweden.</p>
+        <h1 class="mega">Built on experience.<br>Driven by results.</h1>
+      </div>
+    </section>
+
+    <!-- 3. Statement surrounded by a picture mosaic -->
+    <section class="statement" data-section="statement" data-label="About">
+      <div class="mosaic" aria-hidden="true">
+        <img class="m m1" src="images/mosaic-conversation.svg" alt="" width="600" height="450">
+        <img class="m m2" src="images/mosaic-storefront.svg" alt="" width="600" height="450">
+        <img class="m m3" src="images/mosaic-board.svg" alt="" width="600" height="450">
+        <img class="m m4" src="images/mosaic-showroom.svg" alt="" width="600" height="450">
+        <img class="m m5" src="images/mosaic-portrait.svg" alt="" width="600" height="450">
+        <img class="m m6" src="images/mosaic-desk.svg" alt="" width="600" height="450">
+      </div>
+      <div class="statement-copy">
+        <p class="kicker">We've sat in your chair.</p>
+        <p class="reveal-text">Our managers have led stores, regions, countries and Nordic organisations. Now we bring that experience to your business, connecting strategy with everyday operations so leaders turn insight into measurable results.</p>
+      </div>
+    </section>
+
+    <!-- 4. Pinned picture + pillars -->
+    <section id="approach" class="pillars" data-section="pillars" data-label="Approach">
       <div class="wrap">
-        <a class="eyebrow" href="#industries">Retail · Automotive · Service <span aria-hidden="true">›</span></a>
-        <h1 class="display">Where strategy meets<br>everyday operations</h1>
-
-        <div class="hero-split">
-          <article class="hero-card">
-            <div class="hero-card-head">
-              <div>
-                <p class="kicker">For leaders</p>
-                <h2 class="hero-card-title">Leadership development and executive coaching</h2>
-              </div>
-              <a class="btn" href="#services" data-tab-link="leaders">Develop leaders</a>
-            </div>
-            <figure class="media hero-media">
-              <img src="images/hero-coaching.svg" alt="Illustration: a consultant and a manager in a one-to-one coaching session by a bright window" width="800" height="600">
-              <figcaption class="media-chip"><span class="dot"></span> Executive coaching</figcaption>
-            </figure>
-          </article>
-
-          <article class="hero-card">
-            <div class="hero-card-head">
-              <div>
-                <p class="kicker">For organisations</p>
-                <h2 class="hero-card-title">Business development and operational improvement</h2>
-              </div>
-              <a class="btn" href="#services" data-tab-link="organisations">Improve performance</a>
-            </div>
-            <figure class="media hero-media">
-              <img src="images/hero-workshop.svg" alt="Illustration: a facilitator presenting a rising performance chart to a team in a workshop" width="800" height="600">
-              <figcaption class="media-chip"><span class="dot"></span> Performance workshop</figcaption>
-            </figure>
-          </article>
+        <h2 class="big">Turning insight into<br>real-world results.</h2>
+        <div class="pillars-grid">
+          <div class="pillar-media">
+            <img class="pillar-img is-active" data-pillar="0" src="images/story-training.svg" alt="Illustration: a facilitator presenting a practical plan on a flipchart" width="360" height="560">
+            <img class="pillar-img" data-pillar="1" src="images/mission-meeting.svg" alt="Illustration: a management team reviewing results around a table" width="480" height="580">
+            <img class="pillar-img" data-pillar="2" src="images/story-automotive.svg" alt="Illustration: a manager in a car showroom" width="360" height="560">
+          </div>
+          <div class="pillar-list">
+            <p class="lead">We help leaders improve performance in a way that sticks: grounded in the business, measured as we go, and owned by the people who run it.</p>
+            <article class="pillar is-active" data-pillar="0">
+              <h3>Practical</h3>
+              <p>Every programme is built around your real numbers, stores and teams. Nothing theoretical, nothing generic.</p>
+            </article>
+            <article class="pillar" data-pillar="1">
+              <h3>Measurable</h3>
+              <p>We start with a performance analysis and set clear goals, so progress shows in the results, not just in the feedback forms.</p>
+            </article>
+            <article class="pillar" data-pillar="2">
+              <h3>Lasting</h3>
+              <p>Leaders and teams own the change. We train, coach and follow up until the new way of working holds without us.</p>
+            </article>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 2. Experience strip -->
-    <section id="industries" class="logos" data-section="logos" aria-label="Experience">
-      <p class="logos-label">Senior management experience across industries and levels</p>
-      <div class="marquee">
-        <div class="marquee-track">
-          <span>Retail</span><span>Automotive</span><span>Service</span><span>Store level</span><span>Regional level</span><span>Country level</span><span>Nordic level</span>
-          <span aria-hidden="true">Retail</span><span aria-hidden="true">Automotive</span><span aria-hidden="true">Service</span><span aria-hidden="true">Store level</span><span aria-hidden="true">Regional level</span><span aria-hidden="true">Country level</span><span aria-hidden="true">Nordic level</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. Tabbed services -->
-    <section id="services" class="everyone" data-section="tabs">
+    <!-- 5. Services: banner card + stacked cards -->
+    <section id="services" class="services" data-section="services" data-label="Services">
       <div class="wrap">
-        <h2 class="section-title">For leaders and businesses<br>ready for their next step</h2>
-        <div class="tabs" role="tablist" aria-label="Services">
-          <button role="tab" id="tab-leaders" aria-controls="panel-leaders" aria-selected="true">Leaders</button>
-          <button role="tab" id="tab-organisations" aria-controls="panel-organisations" aria-selected="false" tabindex="-1">Organisations</button>
-        </div>
-
-        <div role="tabpanel" id="panel-leaders" aria-labelledby="tab-leaders" class="panel">
-          <div class="feature">
-            <div class="feature-copy">
-              <h3>Leadership training that<br>holds up on Monday morning</h3>
-              <p>Practical leadership development built on real management experience, so new skills carry straight into daily work.</p>
-            </div>
-            <div class="feature-visual">
-              <ul class="job-list">
-                <li><b>Leading through change</b><span>Module 1 · Workshop</span><i>Done</i></li>
-                <li><b>Coaching your team</b><span>Module 2 · Workshop</span><i>Next</i></li>
-                <li><b>Goals and follow-up</b><span>Module 3 · On the job</span><i>Planned</i></li>
-              </ul>
-            </div>
-          </div>
-          <div class="feature">
-            <div class="feature-copy">
-              <h3>Executive coaching,<br>one leader at a time</h3>
-              <p>Confidential one-to-one coaching for managers at store, regional, country and Nordic level.</p>
-            </div>
-            <div class="feature-visual">
-              <div class="intro-card">
-                <p class="intro-to">Coaching session · agenda</p>
-                <p>Priorities for the next quarter, how to delegate more of the daily operation, and preparing the change conversation with the team.</p>
-                <span class="chip">Session booked</span>
-              </div>
-            </div>
-          </div>
-          <div class="feature">
-            <div class="feature-copy">
-              <h3>Clear goals everyone<br>can act on</h3>
-              <p>We help leaders turn strategy into a few concrete goals, and build the habit of following them up.</p>
-            </div>
-            <div class="feature-visual">
-              <div class="feedback-card">
-                <p class="q">"What does a great quarter look like for your team?"</p>
-                <p class="a">Three goals, one owner each, reviewed every week in a fifteen-minute check-in.</p>
-                <div class="tags"><span class="good">Specific</span><span class="good">Owned</span><span class="warn">Add a measure</span></div>
-              </div>
-            </div>
-          </div>
-          <div class="feature">
-            <div class="feature-copy">
-              <h3>Change that people<br>actually carry through</h3>
-              <p>Change management and organisational development that start with the people who have to make it work.</p>
-            </div>
-            <div class="feature-visual">
-              <div class="offer-card">
-                <div><small>Today</small><b>Insight</b></div>
-                <div class="arrow" aria-hidden="true">→</div>
-                <div><small>Together</small><b>Results</b></div>
-              </div>
-            </div>
+        <div class="banner-card">
+          <img src="images/services-banner.svg" alt="Illustration: a leadership training session in a bright room" width="1600" height="900">
+          <div class="banner-copy">
+            <h2 class="big light">The work behind<br>the results.</h2>
+            <a class="btn" href="#contact">Explore our services</a>
           </div>
         </div>
-
-        <div role="tabpanel" id="panel-organisations" aria-labelledby="tab-organisations" class="panel" hidden>
-          <div class="feature">
-            <div class="feature-copy">
-              <h3>Start with an honest<br>performance analysis</h3>
-              <p>We look at how the business really performs, from the shop floor up, and find where the biggest gains are.</p>
-            </div>
-            <div class="feature-visual">
-              <ul class="job-list">
-                <li><b>Sales and margin</b><span>By store and region</span><i>Analysed</i></li>
-                <li><b>Ways of working</b><span>Interviews and visits</span><i>Analysed</i></li>
-                <li><b>Leadership and culture</b><span>Team survey</span><i>In progress</i></li>
-              </ul>
-            </div>
-          </div>
-          <div class="feature">
-            <div class="feature-copy">
-              <h3>A strategy plan that<br>reaches the front line</h3>
-              <p>Strategic planning and goal setting that connect boardroom decisions with what happens in every store and workshop.</p>
-            </div>
-            <div class="feature-visual">
-              <div class="intro-card"><p class="intro-to">Plan · next 12 months</p><p>Three priorities, owners at every level, and a simple monthly follow-up rhythm.</p><span class="chip">Agreed with management</span></div>
-            </div>
-          </div>
-          <div class="feature">
-            <div class="feature-copy">
-              <h3>Practical improvement,<br>measured as you go</h3>
-              <p>Hands-on improvement programmes and corporate training, followed up until the results show in the numbers.</p>
-            </div>
-            <div class="feature-visual">
-              <div class="offer-card"><div><small>Analysis</small><b>Insight</b></div><div class="arrow" aria-hidden="true">→</div><div><small>Follow-up</small><b>Results</b></div></div>
-            </div>
-          </div>
+        <div class="stack">
+          <a class="stack-card" href="#contact">
+            <img src="images/hero-workshop.svg" alt="" width="800" height="600">
+            <span class="stack-copy"><small>Explore</small><b>Business development</b><span>Performance analysis, strategic planning, goal setting and operational improvement.</span></span>
+          </a>
+          <a class="stack-card" href="#contact">
+            <img src="images/hero-coaching.svg" alt="" width="800" height="600">
+            <span class="stack-copy"><small>Explore</small><b>Leadership and coaching</b><span>Leadership development and confidential executive coaching for managers at every level.</span></span>
+          </a>
+          <a class="stack-card" href="#contact">
+            <img src="images/card-training.svg" alt="" width="1200" height="750">
+            <span class="stack-copy"><small>Explore</small><b>Training and change</b><span>Corporate training, organisational development and change management that people carry through.</span></span>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- 4. CTA -->
-    <section id="contact" class="cta" data-section="cta">
-      <div class="wrap cta-inner">
-        <h2 class="display-sm">Less guessing.<br>More measurable results.</h2>
-        <p>Tell us where your business wants to be. We'll show you how to get there, together with your leaders.</p>
-        <a class="btn btn-lg" href="#contact">Book a call</a>
+    <!-- 6. Full-bleed dark band -->
+    <section class="standard" data-section="standard" data-label="Our standard">
+      <img class="standard-img" src="images/dusk-leader.svg" alt="" width="1600" height="900">
+      <div class="wrap standard-copy">
+        <h2 class="big light">Setting a higher<br>standard for leadership.</h2>
+        <p>For us, results aren't a slide in a final report. They're something we build with your leaders every week, with honest analysis, clear goals and steady follow-up.</p>
+        <a class="btn" href="#approach">Our approach</a>
       </div>
     </section>
 
-    <!-- 5. Sector stories -->
-    <section class="stories" data-section="testimonials">
+    <!-- 7. Industries: picture + tabbed panel -->
+    <section id="industries" class="industries" data-section="industries" data-label="Industries">
       <div class="wrap">
-        <div class="stories-head">
-          <h2 class="section-title-sm">From the shop floor to the boardroom</h2>
-          <div class="carousel-btns">
-            <button class="round" data-scroll="-1" aria-label="Previous">←</button>
-            <button class="round" data-scroll="1" aria-label="Next">→</button>
+        <h2 class="big">Trusted across<br>industries.</h2>
+        <p class="lead narrow">From the shop floor to the boardroom, our experience covers the businesses where leadership meets customers every day.</p>
+        <div class="ind-grid">
+          <img class="ind-img" src="images/mission-store.svg" alt="Illustration: two store managers on the shop floor" width="600" height="340">
+          <div class="ind-panel">
+            <div class="ind-tabs" role="tablist" aria-label="Industries">
+              <button role="tab" id="t-retail" aria-controls="p-retail" aria-selected="true">Retail</button>
+              <button role="tab" id="t-auto" aria-controls="p-auto" aria-selected="false" tabindex="-1">Automotive</button>
+              <button role="tab" id="t-service" aria-controls="p-service" aria-selected="false" tabindex="-1">Service</button>
+              <button role="tab" id="t-nordic" aria-controls="p-nordic" aria-selected="false" tabindex="-1">Nordic</button>
+            </div>
+            <div role="tabpanel" id="p-retail" aria-labelledby="t-retail"><p class="ind-quote">Store performance, regional leadership and the routines that make every store a little better each week.</p><p class="ind-meta">Store and regional management</p></div>
+            <div role="tabpanel" id="p-auto" aria-labelledby="t-auto" hidden><p class="ind-quote">Sharper processes and stronger leadership across dealerships, sales teams and workshops.</p><p class="ind-meta">Dealer and workshop operations</p></div>
+            <div role="tabpanel" id="p-service" aria-labelledby="t-service" hidden><p class="ind-quote">Customer-facing teams that know their goals, and managers who know how to coach them there.</p><p class="ind-meta">Front-line service teams</p></div>
+            <div role="tabpanel" id="p-nordic" aria-labelledby="t-nordic" hidden><p class="ind-quote">Experience leading at country and Nordic level, for organisations working across borders.</p><p class="ind-meta">Country and Nordic organisations</p></div>
+            <a class="btn" href="#contact">Talk to us</a>
           </div>
         </div>
       </div>
-      <div class="story-track" tabindex="0" aria-label="Where we work">
-        <figure class="story"><img src="images/story-retail.svg" alt="" width="360" height="560"><blockquote>Store performance programmes that lift sales and service on the floor.</blockquote><figcaption><b>Retail</b> Store and regional management</figcaption></figure>
-        <figure class="story"><img src="images/story-automotive.svg" alt="" width="360" height="560"><blockquote>Sharper processes and leadership across dealerships and workshops.</blockquote><figcaption><b>Automotive</b> Dealer and workshop operations</figcaption></figure>
-        <figure class="story"><img src="images/story-service.svg" alt="" width="360" height="560"><blockquote>Customer-facing teams that know their goals and how to reach them.</blockquote><figcaption><b>Service</b> Front-line teams</figcaption></figure>
-        <figure class="story"><img src="images/story-executive.svg" alt="" width="360" height="560"><blockquote>A thinking partner for leaders carrying country and Nordic responsibility.</blockquote><figcaption><b>Executive coaching</b> Senior leaders</figcaption></figure>
-        <figure class="story"><img src="images/story-training.svg" alt="" width="360" height="560"><blockquote>Training that people use the very next day.</blockquote><figcaption><b>Corporate training</b> Managers and teams</figcaption></figure>
-        <figure class="story"><img src="images/story-team.svg" alt="" width="360" height="560"><blockquote>Management teams aligned on a few goals that matter.</blockquote><figcaption><b>Organisational development</b> Management teams</figcaption></figure>
-      </div>
     </section>
 
-    <!-- 6. Stats -->
-    <section class="stats" data-section="stats">
-      <div class="wrap stats-grid">
-        <div class="stat"><b data-count="3">0</b><span>Industries: retail, automotive and service</span></div>
-        <div class="stat"><b data-count="4">0</b><span>Levels of senior management: store, regional, country, Nordic</span></div>
-        <div class="stat"><b data-count="5">0</b><span>Services, from performance analysis to executive coaching</span></div>
-      </div>
-    </section>
-
-    <!-- 7. Mission -->
-    <section id="about" class="mission" data-section="mission">
+    <!-- 8. Insights carousel on warm grey -->
+    <section id="insights" class="insights" data-section="insights" data-label="Insights">
       <div class="wrap">
-        <h2 class="display">Making strategy<br>run like clockwork</h2>
-        <div class="mission-grid">
-          <div class="tile t1"><img src="images/mission-meeting.svg" alt="Illustration: a management team meeting around a table" width="480" height="580"></div>
-          <div class="tile clock" aria-hidden="true">
-            <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="2"/><line class="hand-h" x1="50" y1="50" x2="50" y2="28" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><line class="hand-m" x1="50" y1="50" x2="50" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="50" cy="50" r="3" fill="currentColor"/></svg>
+        <div class="insights-head">
+          <div>
+            <h2 class="big">Insights.</h2>
+            <p class="lead narrow">Practical ideas from our work with leaders in retail, automotive and service.</p>
           </div>
-          <div class="tile t3"><img src="images/mission-store.svg" alt="Illustration: two store managers reviewing results on the shop floor" width="600" height="340"></div>
-          <div class="tile t4"><img src="images/mission-workshop.svg" alt="Illustration: a leadership training session in a bright workshop room" width="1000" height="300"></div>
+          <div class="insights-ctrl">
+            <a class="btn" href="#contact">Ask us more</a>
+            <button class="round" data-scroll="-1" aria-label="Previous insights">←</button>
+            <button class="round" data-scroll="1" aria-label="Next insights">→</button>
+          </div>
         </div>
-        <p class="mission-copy">DGK AB is an independent consultancy in Sweden. We combine senior management experience with hands-on consulting and training, so leaders turn insight into measurable results. <a href="#contact">Work with us <span aria-hidden="true">→</span></a></p>
       </div>
-      <div class="wrap final-cta">
-        <h2 class="display-sm">Take your next step</h2>
-        <a class="btn btn-lg" href="#contact">Book a call</a>
+      <div class="insight-track" tabindex="0" aria-label="Insights">
+        <article class="insight"><img src="images/insight-store.svg" alt="" width="800" height="600"><p class="tag">Retail</p><h3>The best store improvements start with the store manager</h3><p>Give them the numbers, the time and a coach, and they will find gains no head office can see.</p></article>
+        <article class="insight"><img src="images/insight-goals.svg" alt="" width="800" height="600"><p class="tag">Goal setting</p><h3>Three goals beat ten</h3><p>A short list with one owner each gets followed up. A long one gets filed.</p></article>
+        <article class="insight"><img src="images/insight-change.svg" alt="" width="800" height="600"><p class="tag">Change management</p><h3>Change sticks when the team can explain it</h3><p>If people on the floor can't say why, the change hasn't happened yet.</p></article>
+        <article class="insight"><img src="images/insight-walk.svg" alt="" width="800" height="600"><p class="tag">Executive coaching</p><h3>Senior leaders need a thinking partner, too</h3><p>The higher the role, the fewer people will tell you the truth. Coaching fills that gap.</p></article>
+      </div>
+    </section>
+
+    <!-- 9. Join: oversized headline + fanned pictures -->
+    <section id="contact" class="join" data-section="join" data-label="Contact">
+      <div class="wrap">
+        <h2 class="mega dark">Build better<br>leaders with us.</h2>
+        <a class="btn" href="#contact">Book a call</a>
+      </div>
+      <div class="fan" aria-hidden="true">
+        <img src="images/story-retail.svg" alt="" width="360" height="560">
+        <img src="images/story-service.svg" alt="" width="360" height="560">
+        <img src="images/story-executive.svg" alt="" width="360" height="560">
+        <img src="images/story-team.svg" alt="" width="360" height="560">
       </div>
     </section>
   </main>
 
-  <!-- 8. Footer -->
+  <!-- 10. Gradient footer -->
   <footer class="site-footer" data-section="footer">
-    <div class="wrap footer-grid">
-      <div class="footer-brand">
-        <a class="logo" href="#top"><span class="logo-mark" aria-hidden="true"></span>DGK AB</a>
-        <p>Management consulting and leadership development in Sweden.</p>
+    <div class="wrap footer-inner">
+      <div class="footer-top">
+        <h2 class="footer-title">Let's take the<br>next step together</h2>
+        <a class="btn btn-light" href="#contact">Book a call</a>
       </div>
-      <div><h4>Business</h4><a href="#services" data-tab-link="organisations">Performance analysis</a><a href="#services" data-tab-link="organisations">Strategic planning</a><a href="#services" data-tab-link="organisations">Operational improvement</a></div>
-      <div><h4>Leadership</h4><a href="#services" data-tab-link="leaders">Leadership development</a><a href="#services" data-tab-link="leaders">Executive coaching</a><a href="#services" data-tab-link="leaders">Corporate training</a></div>
-      <div><h4>Industries</h4><a href="#industries">Retail</a><a href="#industries">Automotive</a><a href="#industries">Service</a></div>
-      <div><h4>Company</h4><a href="#about">About</a><a href="#contact">Contact</a></div>
-      <div><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a></div>
-    </div>
-    <div class="wrap footer-base">
-      <span>© 2026 DGK AB · Sweden</span>
+      <nav class="footer-links" aria-label="Footer">
+        <div><h4>Services</h4><a href="#services">Business development</a><a href="#services">Leadership and coaching</a><a href="#services">Training and change</a></div>
+        <div><h4>Company</h4><a href="#approach">Approach</a><a href="#industries">Industries</a><a href="#insights">Insights</a></div>
+        <div><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a></div>
+      </nav>
+      <p class="copyright">© 2026 DGK AB · Sweden</p>
       <span class="wordmark" aria-hidden="true">DGK AB</span>
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=2"></script>
 </body>
 </html>

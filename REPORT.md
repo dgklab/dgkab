@@ -1,90 +1,95 @@
 # Remake report
 
-DGK AB site built on the layout of the jackandjill.ai home page. Brand, copy and pictures are DGK AB's own.
+DGK AB site built on the layout of the waabi.ai home page. Brand, copy and pictures are DGK AB's own.
 
 ## Structure
 
-- [x] All 9 sections present
+- [x] All 11 sections present
 - [x] Sections in reference order
 
 ## Brand
 
-- [x] DGK AB in page title, logo and footer
+- [x] DGK AB in title, header and footer
 - [x] Navy, teal, warm grey and white tokens
+- [x] Teal pill buttons (reference accent swapped for brand teal)
 - [x] Services from the brief are named
-- [x] Industries from the brief are named
-- [x] No leftover placeholder brand
+- [x] Industries and levels from the brief are named
 
-## Header
+## Announcement bar
 
-- [x] Logo with mark
-- [x] 4 nav links
-- [x] Secondary + primary buttons
-- [x] Sticky header
-- [x] Mobile menu toggle wired up
+- [x] Message with link
+- [x] Dismissible, remembered for the visit
+
+## Pill header
+
+- [x] Floating centred pill
+- [x] Logo, current-section label and menu button
+- [x] Label follows the section in view
+- [x] Scroll progress line
+- [x] Menu opens, closes on Esc and outside click
 
 ## Hero
 
-- [x] Eyebrow link above headline
-- [x] Serif display h1
-- [x] Split: two audience cards
-- [x] One CTA per card
-- [x] Picture in each card, 4:3
+- [x] Full-bleed picture
+- [x] Oversized serif headline (≥120px at desktop)
+- [x] Two-line headline
 
-## Logo strip
+## Statement
 
-- [x] At least 6 items
-- [x] Scrolling marquee
+- [x] Centred statement with kicker
+- [x] Words fill in on scroll
+- [x] Six mosaic pictures around the text
+- [x] Mosaic drifts on scroll (parallax)
 
-## Tabs
+## Pillars
 
-- [x] Section title
-- [x] Two tabs
-- [x] Two tab panels
-- [x] First panel has 4 features
-- [x] Feedback card
-- [x] Keyboard tab switching
-- [x] Scroll reveal with fallback
+- [x] Large heading
+- [x] Pinned picture beside the list
+- [x] Three pillars, each with its own picture
+- [x] Active pillar follows scroll
 
-## CTA
+## Services
 
-- [x] Dark band with serif headline
-- [x] Supporting line + button
+- [x] Wide picture card with overlaid heading and button
+- [x] Three picture cards that stack while scrolling
 
-## Stories
+## Dark band
 
-- [x] Section heading
-- [x] 6 portrait cards
-- [x] Portrait aspect ratio 9:14
-- [x] Prev/next carousel controls
+- [x] Full-bleed dark picture with white heading, text and button
 
-## Stats
+## Industries
 
-- [x] Three stats
-- [x] Animated counters with fallback
+- [x] Heading and intro
+- [x] Picture with overlapping dark panel
+- [x] Four tabs with keyboard support
 
-## Mission
+## Insights
 
-- [x] "…run like clockwork" heading
-- [x] Picture grid + clock tile
-- [x] Link after the mission copy
-- [x] Final call to action
+- [x] Warm grey band
+- [x] Heading, button and prev/next arrows
+- [x] Four picture cards in a carousel
+
+## Join
+
+- [x] Oversized headline + button
+- [x] Fanned row of four pictures
 
 ## Footer
 
-- [x] Five link columns
-- [x] Light footer background
-- [x] Large wordmark
+- [x] Gradient tunnel background in brand colours
+- [x] Closing line + button
+- [x] Link columns
+- [x] Giant wordmark
 
 ## Pictures
 
-- [x] 11 picture slots filled (2 hero, 6 stories, 3 mission)
+- [x] 24 picture slots filled
 - [x] Every picture is a local file that exists
 - [x] Every picture is different
 - [x] Pictures use only the brand palette
 - [x] Each picture shows navy and teal
 - [x] Pictures contain no text or logos
-- [x] Informative pictures have alt text; story backdrops are decorative
+- [x] Every picture has an alt attribute; key pictures are described
 - [x] Pictures fill their slot (object-fit: cover)
 - [x] Generator script is included
 - [x] No unused pictures in images/
@@ -95,22 +100,24 @@ DGK AB site built on the layout of the jackandjill.ai home page. Brand, copy and
 - [x] Tablet breakpoint (≤900px)
 - [x] Phone breakpoint (≤600px)
 - [x] Side gutter ≥16px
+- [x] Sticky and absolute layouts unpinned on small screens
 
 ## Accessibility
 
-- [x] Reduced-motion support
+- [x] Reduced-motion support in CSS and JS
 - [x] Visible focus style
 - [x] html lang set
+- [x] Storage access guarded
 
 ## Originality
 
-- [x] No reference brand, people, customers, copy or fonts
+- [x] No reference brand, people, partners, copy or fonts
 - [x] No hotlinked images or media
 
 ## Files
 
 - [x] All local references resolve
 
-**61/61 checks passed**
+**62/62 checks passed**
 
 REMAKE COMPLETE

@@ -220,15 +220,170 @@ const scenes = {
     ${standing(245, 290, 0.8, { top: C.teal, skin: SKIN[1], hair: HAIR[0] })}
     ${standing(360, 290, 0.75, { top: C.navy, skin: SKIN[3], hair: HAIR[2], long: true, hold: tablet })}`),
 
-  'mission-workshop.svg': () => svg(1000, 300, 'k', `
-    ${room('k', 1000, 300, 250)}
-    ${windowPane('k', 40, 30, 220, 160, 60)}${windowPane('k', 300, 30, 220, 160, 60)}
-    ${whiteboard(620, 30, 300, 170)}
-    ${seated(150, 300, 0.55, { dir: 1, top: C.navy, skin: SKIN[0], hair: HAIR[1], chair: C.navySoft })}
-    ${seated(290, 300, 0.55, { dir: 1, top: C.teal, skin: SKIN[2], hair: HAIR[0], long: true, chair: C.navySoft })}
-    ${seated(430, 300, 0.55, { dir: 1, top: C.greyDark, skin: SKIN[3], hair: HAIR[2], chair: C.navySoft })}
-    ${standing(580, 270, 0.62, { top: C.navy, skin: SKIN[4], hair: HAIR[3], arm: 'point' })}`),
+  // Full-bleed hero (16:9): bright open office, team workshop by tall windows
+  'hero-office.svg': () => svg(1600, 900, 'l', `
+    ${room('l', 1600, 900, 720)}
+    ${windowPane('l', 60, 70, 330, 470, 180)}${windowPane('l', 450, 70, 330, 470, 180)}
+    ${pendant(1000, 0, 150)}${pendant(1250, 0, 110)}
+    ${whiteboard(1080, 200, 380, 250)}
+    ${plant(900, 720, 1.5)}
+    ${shadow('l', 760, 724, 560)}
+    ${seated(300, 900, 1.25, { dir: 1, top: C.navy, skin: SKIN[0], hair: HAIR[1], chair: C.navySoft })}
+    ${seated(520, 900, 1.25, { dir: 1, top: C.teal, skin: SKIN[2], hair: HAIR[0], long: true, chair: C.navySoft })}
+    ${seated(740, 900, 1.25, { dir: 1, top: C.greyDark, skin: SKIN[3], hair: HAIR[2], chair: C.navySoft })}
+    ${standing(1010, 740, 1.15, { top: C.navy, skin: SKIN[4], hair: HAIR[3], arm: 'point' })}`),
+
+  // Full-bleed dark band (16:9): a leader at a window at dusk, city lights outside
+  'dusk-leader.svg': () => {
+    let lights = '';
+    for (let i = 0; i < 70; i++) {
+      const x = 120 + ((i * 97) % 1360), y = 420 + ((i * 53) % 260);
+      lights += `<rect x="${x}" y="${y}" width="10" height="14" fill="${i % 3 ? C.tealPale : C.white}" opacity="${0.35 + (i % 4) * 0.15}"/>`;
+    }
+    return svg(1600, 900, 'm', `
+    <defs><linearGradient id="mdusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${C.navyDeep}"/><stop offset=".55" stop-color="${C.navySoft}"/><stop offset="1" stop-color="${C.teal}"/></linearGradient>
+    <radialGradient id="mlamp"><stop offset="0" stop-color="${C.white}" stop-opacity=".35"/><stop offset="1" stop-color="${C.white}" stop-opacity="0"/></radialGradient></defs>
+    <rect width="1600" height="900" fill="${C.navyDeep}"/>
+    <rect x="80" y="60" width="1440" height="700" fill="url(#mdusk)"/>
+    <path d="M80 760 L80 480 L220 480 L220 400 L360 400 L360 520 L520 520 L520 340 L640 340 L640 460 L820 460 L820 380 L980 380 L980 500 L1160 500 L1160 300 L1300 300 L1300 440 L1520 440 L1520 760 Z" fill="${C.navyDeep}"/>
+    ${lights}
+    <rect x="796" y="60" width="8" height="700" fill="${C.navyDeep}"/><rect x="80" y="400" width="1440" height="8" fill="${C.navyDeep}" opacity=".6"/>
+    <rect y="760" width="1600" height="140" fill="${C.navy}"/>
+    <circle cx="1320" cy="640" r="260" fill="url(#mlamp)"/>
+    <rect x="1180" y="700" width="300" height="14" fill="${C.greyDark}"/><path d="M1300 700 L1320 620 L1360 620" stroke="${C.grey}" stroke-width="6" fill="none"/><path d="M1340 600 L1390 600 L1380 630 L1350 630Z" fill="${C.tealLight}"/>
+    ${standing(700, 900, 1.3, { top: C.navySoft, legs: C.navyDeep, skin: SKIN[1], hair: HAIR[0], arm: 'hold' })}`);
+  },
+
+  // Services banner (16:9): leadership training room
+  'services-banner.svg': () => svg(1600, 900, 'n', `
+    ${room('n', 1600, 900, 700)}
+    ${windowPane('n', 80, 80, 420, 420, 200)}
+    ${pendant(800, 0, 140)}
+    ${flipchart(1240, 700, 1.3)}
+    ${shadow('n', 800, 704, 600)}
+    ${seated(520, 760, 1, { dir: 1, top: C.greyDark, skin: SKIN[4], hair: HAIR[3], chair: C.navySoft })}
+    ${seated(720, 760, 1, { dir: 1, top: C.tealLight, skin: SKIN[0], hair: HAIR[2], long: true, chair: C.navySoft })}
+    ${seated(420, 900, 1.15, { dir: 1, top: C.navy, skin: SKIN[3], hair: HAIR[1], chair: C.navySoft })}
+    ${seated(640, 900, 1.15, { dir: 1, top: C.teal, skin: SKIN[2], hair: HAIR[0], chair: C.navySoft })}
+    ${seated(860, 900, 1.15, { dir: 1, top: C.navySoft, skin: SKIN[1], hair: HAIR[4], long: true, chair: C.navySoft })}
+    ${standing(1100, 720, 1.1, { top: C.navy, skin: SKIN[3], hair: HAIR[2], long: true, arm: 'point' })}`),
+
+  // Service card (16:10): hands-on training at laptops
+  'card-training.svg': () => svg(1200, 750, 'o', `
+    ${room('o', 1200, 750, 600)}
+    <rect x="720" y="90" width="400" height="240" rx="8" fill="${C.navy}"/><rect x="760" y="130" width="160" height="12" rx="6" fill="${C.tealLight}"/><rect x="760" y="160" width="300" height="8" rx="4" fill="${C.grey}"/><rect x="760" y="180" width="260" height="8" rx="4" fill="${C.grey}"/>
+    <path d="M760 300 L840 260 L920 280 L1000 220 L1080 200" stroke="${C.teal}" stroke-width="6" fill="none" stroke-linecap="round"/>
+    ${plant(70, 600, 1.2)}
+    ${shadow('o', 500, 604, 420)}
+    ${seated(220, 750, 1, { dir: 1, top: C.teal, skin: SKIN[0], hair: HAIR[1], chair: C.navySoft })}
+    ${table(300, 750, 150, 140)}${laptop(330, 610)}
+    ${seated(560, 750, 1, { dir: 1, top: C.navy, skin: SKIN[2], hair: HAIR[3], long: true, chair: C.navySoft })}
+    ${table(640, 750, 150, 140)}${laptop(670, 610)}
+    ${standing(960, 640, 0.95, { top: C.greyDark, skin: SKIN[1], hair: HAIR[0] })}`),
+
+  // Mosaic tiles (4:3)
+  'mosaic-conversation.svg': () => svg(600, 450, 'p', `
+    ${room('p', 600, 450, 380)}
+    ${windowPane('p', 150, 40, 300, 240, 0)}
+    ${shadow('p', 300, 382, 180)}
+    ${standing(220, 430, 0.8, { top: C.navy, skin: SKIN[0], hair: HAIR[1] })}${cup(244, 330)}
+    ${standing(380, 430, 0.8, { top: C.teal, skin: SKIN[2], hair: HAIR[0], long: true })}${cup(334, 330)}`),
+
+  'mosaic-desk.svg': () => svg(600, 450, 'q', `
+    <rect width="600" height="450" fill="${C.greyLight}"/>
+    <rect y="250" width="600" height="200" fill="${C.wood}"/><rect y="250" width="600" height="10" fill="${C.grey}"/>
+    ${windowPane('q', 60, 30, 200, 180, 0)}
+    ${plant(520, 262, 1.1)}
+    <g transform="translate(-130 -250) scale(1.9)">${laptop(170, 290)}${notebook(70, 320, 90)}${cup(280, 316)}
+    <rect x="80" y="330" width="60" height="4" rx="2" fill="${C.navy}" transform="rotate(-10 80 330)"/></g>`),
+
+  'mosaic-storefront.svg': () => {
+    let stripes = '';
+    for (let i = 0; i < 10; i++) stripes += `<rect x="${60 + i * 48}" y="90" width="48" height="50" fill="${i % 2 ? C.white : C.teal}"/>`;
+    return svg(600, 450, 'r', `
+    <rect width="600" height="450" fill="${C.greyMid}"/><rect y="390" width="600" height="60" fill="${C.grey}"/>
+    <rect x="40" y="60" width="520" height="34" fill="${C.navy}"/><rect x="230" y="70" width="140" height="14" rx="7" fill="${C.tealLight}"/>
+    ${stripes}<path d="M60 140 Q84 156 108 140 Q132 156 156 140 Q180 156 204 140 Q228 156 252 140 Q276 156 300 140 Q324 156 348 140 Q372 156 396 140 Q420 156 444 140 Q468 156 492 140 Q516 156 540 140" fill="none" stroke="${C.navy}" stroke-width="3"/>
+    <rect x="60" y="160" width="300" height="230" fill="${C.tealPale}"/>${shelf(76, 180, 268, 200, 3)}
+    <rect x="380" y="160" width="160" height="230" fill="${C.navySoft}"/><rect x="392" y="172" width="136" height="218" fill="${C.tealPale}" opacity=".6"/>
+    ${standing(460, 400, 0.65, { top: C.teal, skin: SKIN[4], hair: HAIR[0] })}`);
+  },
+
+  'mosaic-showroom.svg': () => svg(600, 450, 's', `
+    ${room('s', 600, 450, 360)}
+    ${windowPane('s', -10, 30, 620, 260, 0)}
+    ${shadow('s', 300, 364, 260)}
+    ${car(300, 380, 0.95)}
+    ${plant(560, 360, 0.8)}`),
+
+  'mosaic-portrait.svg': () => svg(600, 450, 't', `
+    ${room('t', 600, 450, 380)}
+    ${windowPane('t', 340, 40, 220, 260, 80)}
+    ${plant(80, 380, 1)}
+    ${seated(230, 450, 0.85, { dir: 1, top: C.navy, skin: SKIN[3], hair: HAIR[2], long: true })}
+    ${table(290, 450, 200, 120)}${laptop(330, 330)}${cup(440, 330)}`),
+
+  'mosaic-board.svg': () => svg(600, 450, 'u', `
+    <rect width="600" height="450" fill="${C.greyLight}"/>
+    ${whiteboard(40, 40, 520, 330)}
+    <rect x="40" y="390" width="520" height="14" rx="4" fill="${C.greyMid}"/>
+    <rect x="120" y="380" width="60" height="10" rx="5" fill="${C.navy}"/><rect x="200" y="380" width="60" height="10" rx="5" fill="${C.teal}"/>`),
+
+  // Insight cards (4:3)
+  'insight-change.svg': () => svg(800, 600, 'v', `
+    ${room('v', 800, 600, 480)}
+    ${flipchart(520, 480, 1.1, true)}
+    ${shadow('v', 400, 484, 260)}
+    ${standing(340, 500, 0.9, { top: C.teal, skin: SKIN[1], hair: HAIR[3], arm: 'point' })}
+    ${plant(90, 480, 1.1)}`),
+
+  'insight-store.svg': () => svg(800, 600, 'w', `
+    ${room('w', 800, 600, 470)}
+    ${shelf(0, 60, 300, 400, 6)}${shelf(500, 60, 300, 400, 2)}
+    ${shadow('w', 400, 474, 140)}
+    ${standing(360, 500, 0.95, { top: C.navy, skin: SKIN[0], hair: HAIR[1], hold: tablet })}
+    ${standing(450, 500, 0.9, { top: C.teal, skin: SKIN[2], hair: HAIR[0], long: true })}`),
+
+  'insight-goals.svg': () => {
+    let list = '';
+    for (let i = 0; i < 4; i++) {
+      const y = 200 + i * 56;
+      list += `<rect x="300" y="${y}" width="22" height="22" rx="4" fill="none" stroke="${C.navy}" stroke-width="3"/>`
+        + (i < 3 ? `<path d="M304 ${y + 11} L310 ${y + 18} L320 ${y + 4}" stroke="${C.teal}" stroke-width="4" fill="none" stroke-linecap="round"/>` : '')
+        + `<rect x="340" y="${y + 6}" width="${200 - i * 24}" height="10" rx="5" fill="${C.greyDark}"/>`;
+    }
+    return svg(800, 600, 'x', `
+    <rect width="800" height="600" fill="${C.wood}"/>
+    <rect x="250" y="120" width="330" height="400" rx="6" fill="${C.white}"/><rect x="250" y="120" width="330" height="44" rx="6" fill="${C.navy}"/>
+    ${list}
+    <rect x="610" y="160" width="14" height="260" rx="7" fill="${C.teal}" transform="rotate(14 610 160)"/>
+    <circle cx="150" cy="200" r="58" fill="${C.white}"/><circle cx="150" cy="200" r="42" fill="${C.greyMid}"/>
+    <rect x="80" y="420" width="120" height="90" rx="6" fill="${C.navySoft}"/>`);
+  },
+
+  'insight-walk.svg': () => svg(800, 600, 'y', `
+    ${room('y', 800, 600, 480)}
+    ${windowPane('y', 40, 50, 340, 360, 120)}${windowPane('y', 420, 50, 340, 360, 120)}
+    ${shadow('y', 400, 484, 200)}
+    ${standing(330, 520, 0.95, { top: C.navy, skin: SKIN[4], hair: HAIR[0] })}
+    ${standing(470, 520, 0.95, { top: C.teal, skin: SKIN[3], hair: HAIR[2], long: true, hold: `<rect x="-14" y="-170" width="40" height="30" rx="3" fill="${C.white}"/>`, arm: 'hold' })}`),
 };
+
+// Pendant lamp hanging from the ceiling
+function pendant(x, y, len) {
+  return `<line x1="${x}" y1="${y}" x2="${x}" y2="${y + len}" stroke="${C.greyDark}" stroke-width="3"/><path d="M${x - 50} ${y + len + 40} Q${x} ${y + len - 30} ${x + 50} ${y + len + 40} Z" fill="${C.navy}"/>`;
+}
+
+// Flipchart on an easel; arrows = change diagram instead of a list
+function flipchart(x, y, s, arrows = false) {
+  const content = arrows
+    ? `<circle cx="-60" cy="-300" r="26" fill="none" stroke="${C.navy}" stroke-width="5"/><path d="M-26 -300 L30 -300 M18 -312 L30 -300 L18 -288" stroke="${C.teal}" stroke-width="5" fill="none"/><circle cx="66" cy="-300" r="26" fill="${C.teal}"/><path d="M-80 -220 L80 -220 M-80 -196 L40 -196" stroke="${C.greyDark}" stroke-width="6" stroke-linecap="round"/>`
+    : `<rect x="-80" y="-350" width="90" height="12" rx="6" fill="${C.navy}"/><path d="M-80 -310 L80 -310 M-80 -285 L60 -285 M-80 -260 L70 -260" stroke="${C.teal}" stroke-width="7" stroke-linecap="round"/><path d="M-80 -200 L-30 -230 L20 -215 L80 -255" stroke="${C.navy}" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+  return `<g transform="translate(${x} ${y}) scale(${s})">
+    <path d="M-90 -150 L-110 0 M90 -150 L110 0 M0 -150 L0 -10" stroke="${C.greyDark}" stroke-width="7"/>
+    <rect x="-104" y="-390" width="208" height="244" fill="${C.white}" stroke="${C.greyMid}" stroke-width="6"/>
+    ${content}</g>`;
+}
 
 for (const [name, make] of Object.entries(scenes)) writeFileSync(join(out, name), make());
 console.log(`Wrote ${Object.keys(scenes).length} images to images/`);
