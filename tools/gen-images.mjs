@@ -1,6 +1,7 @@
-// Generates the DGK AB brand illustrations in images/. Run with: node tools/gen-images.mjs
+// Generates the DGK AB brand illustrations that index.html uses into images/.
+// Run with: node tools/gen-images.mjs
 // Flat, daylight-lit scenes in the brand palette: deep navy, muted teal, warm grey, white.
-import { writeFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, mkdirSync, readFileSync, readdirSync, unlinkSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -369,6 +370,30 @@ const scenes = {
     ${standing(470, 520, 0.95, { top: C.teal, skin: SKIN[3], hair: HAIR[2], long: true, hold: `<rect x="-14" y="-170" width="40" height="30" rx="3" fill="${C.white}"/>`, arm: 'hold' })}`),
 };
 
+// Full-bleed hero (16:9): open teal sky with soft clouds, birds and a low city line
+scenes['hero-sky.svg'] = () => {
+  const cloud = (x, y, s, o) => `<g transform="translate(${x} ${y}) scale(${s})" fill="${C.white}" opacity="${o}"><ellipse cx="0" cy="0" rx="160" ry="44"/><ellipse cx="-70" cy="-22" rx="80" ry="46"/><ellipse cx="50" cy="-34" rx="100" ry="60"/><ellipse cx="130" cy="-6" rx="70" ry="34"/></g>`;
+  const bird = (x, y, s) => `<path d="M${x - 14 * s} ${y - 4 * s} Q${x - 6 * s} ${y - 10 * s} ${x} ${y} Q${x + 6 * s} ${y - 10 * s} ${x + 14 * s} ${y - 4 * s}" stroke="${C.navy}" stroke-width="${2.2 * s}" fill="none" stroke-linecap="round"/>`;
+  return svg(1600, 900, 'z', `
+    <defs><linearGradient id="zheaven" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${C.navySoft}"/><stop offset=".5" stop-color="${C.teal}"/><stop offset="1" stop-color="${C.tealLight}"/></linearGradient>
+    <radialGradient id="zsun" cx=".78" cy=".15" r=".45"><stop offset="0" stop-color="${C.white}" stop-opacity=".28"/><stop offset="1" stop-color="${C.white}" stop-opacity="0"/></radialGradient></defs>
+    <rect width="1600" height="900" fill="url(#zheaven)"/><rect width="1600" height="900" fill="url(#zsun)"/>
+    ${cloud(260, 220, 1.3, 0.3)}${cloud(1240, 140, 1.6, 0.25)}${cloud(900, 470, 1, 0.18)}${cloud(180, 620, 1.1, 0.22)}${cloud(1420, 580, 0.9, 0.2)}
+    ${bird(160, 380, 1.4)}${bird(215, 350, 1)}${bird(1340, 300, 1.2)}${bird(1300, 330, 0.8)}
+    <path d="M0 900 L0 820 L120 820 L120 790 L210 790 L210 810 L330 810 L330 770 L360 700 L390 770 L390 805 L560 805 L560 780 L700 780 L700 812 L880 812 L880 760 L1000 760 L1000 800 L1140 800 L1140 786 L1260 786 L1260 740 L1290 740 L1290 690 L1310 740 L1340 740 L1340 808 L1600 808 L1600 900 Z" fill="${C.navy}" opacity=".35"/>
+    <rect y="860" width="1600" height="40" fill="${C.navy}" opacity=".35"/>`);
+};
+
+// About portrait (4:5): two senior consultants by a window
+scenes['about-duo.svg'] = () => svg(800, 1000, 'ab', `
+  ${room('ab', 800, 1000, 820)}
+  ${windowPane('ab', 80, 90, 420, 560, 160)}
+  ${plant(690, 820, 1.4)}
+  ${shadow('ab', 400, 824, 240)}
+  <rect x="160" y="700" width="200" height="22" rx="6" fill="${C.wood}"/><rect x="176" y="722" width="14" height="100" fill="${C.greyDark}"/><rect x="330" y="722" width="14" height="100" fill="${C.greyDark}"/>
+  ${seated(270, 820, 1.25, { dir: 1, top: C.white, legs: C.navy, skin: SKIN[3], hair: HAIR[1], long: true, chair: C.navySoft })}
+  ${standing(510, 860, 1.75, { top: C.teal, skin: SKIN[0], hair: HAIR[2] })}`);
+
 // Pendant lamp hanging from the ceiling
 function pendant(x, y, len) {
   return `<line x1="${x}" y1="${y}" x2="${x}" y2="${y + len}" stroke="${C.greyDark}" stroke-width="3"/><path d="M${x - 50} ${y + len + 40} Q${x} ${y + len - 30} ${x + 50} ${y + len + 40} Z" fill="${C.navy}"/>`;
@@ -385,5 +410,11 @@ function flipchart(x, y, s, arrows = false) {
     ${content}</g>`;
 }
 
-for (const [name, make] of Object.entries(scenes)) writeFileSync(join(out, name), make());
-console.log(`Wrote ${Object.keys(scenes).length} images to images/`);
+// Write only the pictures index.html uses; other scenes stay available for future layouts
+const page = readFileSync(join(out, '..', 'index.html'), 'utf8');
+const used = [...new Set([...page.matchAll(/src="images\/([\w-]+\.svg)"/g)].map((m) => m[1]))];
+const missing = used.filter((n) => !scenes[n]);
+if (missing.length) throw new Error(`No scene for: ${missing.join(', ')}`);
+for (const n of readdirSync(out)) if (!used.includes(n)) unlinkSync(join(out, n));
+for (const n of used) writeFileSync(join(out, n), scenes[n]());
+console.log(`Wrote ${used.length} images to images/ (${Object.keys(scenes).length} scenes available)`);

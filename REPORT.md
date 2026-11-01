@@ -1,98 +1,89 @@
 # Remake report
 
-DGK AB site built on the layout of the waabi.ai home page. Brand, copy and pictures are DGK AB's own.
+DGK AB site built on the layout of the get-ripe.com home page. Brand, copy and pictures are DGK AB's own.
 
 ## Structure
 
-- [x] All 11 sections present
+- [x] All 9 sections present
 - [x] Sections in reference order
 
 ## Brand
 
-- [x] DGK AB in title, header and footer
+- [x] DGK AB in title, nav and footer
 - [x] Navy, teal, warm grey and white tokens
-- [x] Teal pill buttons (reference accent swapped for brand teal)
+- [x] Reference accents (yellow, sage, pink) swapped for brand teal and warm grey
 - [x] Services from the brief are named
 - [x] Industries and levels from the brief are named
 
+## Type
+
+- [x] Condensed uppercase display face
+- [x] Serif headline face for card and quote headings
+- [x] Small tracked uppercase eyebrows
+
 ## Announcement bar
 
-- [x] Message with link
-- [x] Dismissible, remembered for the visit
+- [x] Message with link, dismissible for the visit
 
-## Pill header
+## Pill nav
 
-- [x] Floating centred pill
-- [x] Logo, current-section label and menu button
-- [x] Label follows the section in view
-- [x] Scroll progress line
-- [x] Menu opens, closes on Esc and outside click
+- [x] Dark floating pill
+- [x] Logo, 4 links and a light CTA pill
+- [x] Mobile menu with Esc and outside click
 
 ## Hero
 
-- [x] Full-bleed picture
-- [x] Oversized serif headline (≥120px at desktop)
-- [x] Two-line headline
+- [x] Full-bleed sky picture
+- [x] Centred condensed uppercase two-line headline
+- [x] Line of copy and two pill buttons
 
-## Statement
+## Why we exist
 
-- [x] Centred statement with kicker
-- [x] Words fill in on scroll
-- [x] Six mosaic pictures around the text
-- [x] Mosaic drifts on scroll (parallax)
+- [x] Eyebrow, big headline and pill on the left; paragraphs on the right
+- [x] Paragraphs light up as you scroll
+- [x] Three portrait offering cards with titles over the picture
 
-## Pillars
+## Organisations card
 
-- [x] Large heading
-- [x] Pinned picture beside the list
-- [x] Three pillars, each with its own picture
-- [x] Active pillar follows scroll
+- [x] Rounded white card with portrait and copy side by side
+- [x] Stacked sticker badges on the picture
+- [x] Eyebrow, serif headline, services list and pill
 
-## Services
+## About
 
-- [x] Wide picture card with overlaid heading and button
-- [x] Three picture cards that stack while scrolling
+- [x] Centred big headline and paragraph
+- [x] Portrait with tilted sticker and pill
 
-## Dark band
+## Outcomes
 
-- [x] Full-bleed dark picture with white heading, text and button
+- [x] Dark band with eyebrow and centred serif headline
+- [x] At least 5 coloured cards in a carousel with arrows
+- [x] Cards describe outcomes, not invented client quotes
 
-## Industries
+## Gallery
 
-- [x] Heading and intro
-- [x] Picture with overlapping dark panel
-- [x] Four tabs with keyboard support
-
-## Insights
-
-- [x] Warm grey band
-- [x] Heading, button and prev/next arrows
-- [x] Four picture cards in a carousel
-
-## Join
-
-- [x] Oversized headline + button
-- [x] Fanned row of four pictures
+- [x] Eyebrow + big headline
+- [x] Strip of 8 portrait pictures in a seamless marquee
+- [x] Pill below
 
 ## Footer
 
-- [x] Gradient tunnel background in brand colours
-- [x] Closing line + button
-- [x] Link columns
-- [x] Giant wordmark
+- [x] Eyebrow, serif headline and call to action
+- [x] No fake signup form
+- [x] Giant wordmark with a moving badge
+- [x] Copyright and privacy link
 
 ## Pictures
 
-- [x] 24 picture slots filled
+- [x] 14 picture slots filled (hero 1, offerings 3, card 1, about 1, gallery 8)
 - [x] Every picture is a local file that exists
 - [x] Every picture is different
 - [x] Pictures use only the brand palette
 - [x] Each picture shows navy and teal
 - [x] Pictures contain no text or logos
-- [x] Every picture has an alt attribute; key pictures are described
-- [x] Pictures fill their slot (object-fit: cover)
-- [x] Generator script is included
-- [x] No unused pictures in images/
+- [x] Every picture has an alt attribute; content pictures are described
+- [x] Every slot type fills with object-fit: cover
+- [x] Generator writes exactly the pictures the page uses
 
 ## Responsive
 
@@ -100,24 +91,25 @@ DGK AB site built on the layout of the waabi.ai home page. Brand, copy and pictu
 - [x] Tablet breakpoint (≤900px)
 - [x] Phone breakpoint (≤600px)
 - [x] Side gutter ≥16px
-- [x] Sticky and absolute layouts unpinned on small screens
+- [x] Split layouts stack on small screens
 
 ## Accessibility
 
+- [x] Content stays visible without JavaScript
 - [x] Reduced-motion support in CSS and JS
 - [x] Visible focus style
+- [x] Marquee copies hidden from screen readers
 - [x] html lang set
-- [x] Storage access guarded
 
 ## Originality
 
-- [x] No reference brand, people, partners, copy or fonts
+- [x] No reference brand, people, clients, copy or fonts
 - [x] No hotlinked images or media
 
 ## Files
 
 - [x] All local references resolve
 
-**62/62 checks passed**
+**57/57 checks passed**
 
 REMAKE COMPLETE

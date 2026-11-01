@@ -1,5 +1,5 @@
 // Remake checker: compares the DGK AB page against the section-by-section layout
-// of the reference home page (waabi.ai), checks the brand pictures, and writes REPORT.md.
+// of the reference home page (get-ripe.com), checks the brand pictures, and writes REPORT.md.
 // Run with: node check.mjs
 import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -25,92 +25,83 @@ const imgs = (s) => [...s.matchAll(/<img\b[^>]*>/g)].map((m) => ({
 const checks = [];
 const check = (group, label, ok) => checks.push({ group, label, ok: Boolean(ok) });
 
-// Structure (reference order: bar, pill header, hero, statement mosaic, pillars, tech cards,
-// safety band, partners, insights, join, footer)
-const order = ['banner', 'header', 'hero', 'statement', 'pillars', 'services', 'standard', 'industries', 'insights', 'join', 'footer'];
+// Structure (reference order: promo bar, pill nav, sky hero, why we exist + offerings,
+// for-companies card, founders, testimonials, follow-us gallery, newsletter footer)
+const order = ['banner', 'header', 'hero', 'why', 'organisations', 'about', 'outcomes', 'gallery', 'footer'];
 const found = [...html.matchAll(/data-section="([a-z]+)"/g)].map((m) => m[1]);
 check('Structure', `All ${order.length} sections present`, order.every((s) => found.includes(s)));
 check('Structure', 'Sections in reference order', JSON.stringify(found.filter((s) => order.includes(s))) === JSON.stringify(order));
 
 // Brand
-check('Brand', 'DGK AB in title, header and footer', /<title>DGK AB/.test(html) && /class="logo"[^>]*>[\s\S]*?DGK AB/.test(section('header')) && /DGK AB/.test(section('footer')));
+check('Brand', 'DGK AB in title, nav and footer', /<title>DGK AB/.test(html) && /class="logo"[^>]*>[\s\S]*?DGK AB/.test(section('header')) && /DGK AB/.test(section('footer')));
 check('Brand', 'Navy, teal, warm grey and white tokens', /--ink:\s*#1d2b44/i.test(css) && /--teal:\s*#4f8a8b/i.test(css) && /--warm:\s*#e8e4df/i.test(css) && /--paper:\s*#fff/i.test(css));
-check('Brand', 'Teal pill buttons (reference accent swapped for brand teal)', rule('.btn', 'background:\\s*var\\(--teal\\)') && rule('.btn', 'border-radius:\\s*50px'));
-check('Brand', 'Services from the brief are named', ['Business development', 'Leadership development', 'Executive coaching', 'Corporate training', 'Performance analysis', 'Change management'].every((s) => html.includes(s)));
-check('Brand', 'Industries and levels from the brief are named', ['Retail', 'Automotive', 'Service', 'Nordic'].every((s) => html.includes(s)));
+check('Brand', 'Reference accents (yellow, sage, pink) swapped for brand teal and warm grey', rule('.pill-teal', 'var\\(--teal-light\\)') && rule('.pill-pale', 'var\\(--teal-pale\\)') && rule('.c2', 'var\\(--warm\\)'));
+check('Brand', 'Services from the brief are named', ['Leadership development', 'Executive coaching', 'Corporate training', 'Performance analysis', 'Strategic planning', 'Operational improvement', 'change management'].every((s) => html.includes(s)));
+check('Brand', 'Industries and levels from the brief are named', ['retail', 'automotive', 'service', 'Nordic'].every((s) => html.toLowerCase().includes(s.toLowerCase())));
 
-// 0. Announcement bar
+// Type system
+check('Type', 'Condensed uppercase display face', /--display:\s*"Anton"/.test(css) && rule('.shout', 'text-transform:\\s*uppercase') && /family=Anton/.test(html));
+check('Type', 'Serif headline face for card and quote headings', rule('.serif-xl', 'var\\(--serif\\)') && rule('.big-quote', 'var\\(--serif\\)'));
+check('Type', 'Small tracked uppercase eyebrows', rule('.eyebrow', 'text-transform:\\s*uppercase') && count(/class="eyebrow/g) >= 6);
+
+// 0. Bar
 const bar = section('banner');
-check('Announcement bar', 'Message with link', /<a href=/.test(bar));
-check('Announcement bar', 'Dismissible, remembered for the visit', /topbar-close/.test(bar) && /has-bar/.test(js) && /sessionStorage/.test(js));
+check('Announcement bar', 'Message with link, dismissible for the visit', /<a href=/.test(bar) && /topbar-close/.test(bar) && /sessionStorage/.test(js));
 
-// 1. Pill header
-const header = section('header');
-check('Pill header', 'Floating centred pill', rule('.pill-header', 'position:\\s*fixed') && /class="pill"/.test(header));
-check('Pill header', 'Logo, current-section label and menu button', /class="logo"/.test(header) && /class="pill-label"/.test(header) && /class="menu-btn"/.test(header));
-check('Pill header', 'Label follows the section in view', /dataset\.label/.test(js) && count(/data-label="/g) >= 8);
-check('Pill header', 'Scroll progress line', /pill-progress/.test(header) && /--progress/.test(js));
-check('Pill header', 'Menu opens, closes on Esc and outside click', /aria-expanded/.test(js) && /Escape/.test(js) && count(/<a href="#/g, (header.match(/id="menu"[\s\S]*?<\/nav>/) || [''])[0]) >= 5);
+// 1. Nav
+const nav = section('header');
+check('Pill nav', 'Dark floating pill', rule('.nav-wrap', 'position:\\s*fixed') && rule('.nav', 'background:\\s*var\\(--ink-deep\\)') && rule('.nav', 'border-radius'));
+check('Pill nav', 'Logo, 4 links and a light CTA pill', /class="logo"/.test(nav) && count(/<a href="#/g, (nav.match(/class="nav-links"[\s\S]*?<\/div>/) || [''])[0]) === 4 && /pill pill-light nav-cta/.test(nav));
+check('Pill nav', 'Mobile menu with Esc and outside click', /menu-btn/.test(nav) && /Escape/.test(js) && /aria-expanded/.test(js));
 
 // 2. Hero
 const hero = section('hero');
-check('Hero', 'Full-bleed picture', /class="hero-img"/.test(hero) && rule('.hero-img', 'object-fit:\\s*cover') && /max\(620px, 100svh\)/.test(css));
-check('Hero', 'Oversized serif headline (≥120px at desktop)', /<h1 class="mega"/.test(hero) && /\.mega\s*{[^}]*clamp\([^)]*1[2-9]\dpx\)/.test(css));
-check('Hero', 'Two-line headline', /<h1[^>]*>[^<]+<br>[^<]+<\/h1>/.test(hero));
+check('Hero', 'Full-bleed sky picture', /class="hero-img" src="images\/hero-sky\.svg"/.test(hero) && rule('.hero-img', 'object-fit:\\s*cover'));
+check('Hero', 'Centred condensed uppercase two-line headline', /<h1 class="shout">[^<]+<br>[^<]+<\/h1>/.test(hero) && rule('.hero', 'text-align:\\s*center'));
+check('Hero', 'Line of copy and two pill buttons', /<p>/.test(hero) && count(/class="pill /g, hero) === 2);
 
-// 3. Statement + mosaic
-const st = section('statement');
-check('Statement', 'Centred statement with kicker', /class="kicker"/.test(st) && /class="reveal-text"/.test(st));
-check('Statement', 'Words fill in on scroll', /class="w"/.test(js) && /--o/.test(js) && /\.reveal-text \.w/.test(css));
-check('Statement', 'Six mosaic pictures around the text', count(/class="m m\d"/g, st) === 6);
-check('Statement', 'Mosaic drifts on scroll (parallax)', /--shift/.test(js) && /--shift/.test(css));
+// 3. Why
+const why = section('why');
+check('Why we exist', 'Eyebrow, big headline and pill on the left; paragraphs on the right', /Why we exist/.test(why) && /class="shout dark"/.test(why) && /class="why-right/.test(why));
+check('Why we exist', 'Paragraphs light up as you scroll', /fade-lines/.test(why) && /classList\.toggle\('on'/.test(js) && /\.js \.fade-lines p\.on/.test(css));
+check('Why we exist', 'Three portrait offering cards with titles over the picture', count(/class="offer-card"/g, why) === 3 && /aspect-ratio:\s*400 \/ 515/.test(css) && rule('.offer-card span', 'position:\\s*absolute'));
 
-// 4. Pillars
-const pil = section('pillars');
-check('Pillars', 'Large heading', /<h2 class="big"/.test(pil));
-check('Pillars', 'Pinned picture beside the list', rule('.pillar-media', 'position:\\s*sticky'));
-check('Pillars', 'Three pillars, each with its own picture', count(/<article class="pillar/g, pil) === 3 && count(/class="pillar-img/g, pil) === 3);
-check('Pillars', 'Active pillar follows scroll', /setPillar/.test(js) && /\.pillar\.is-active/.test(css));
+// 4. Organisations
+const org = section('organisations');
+check('Organisations card', 'Rounded white card with portrait and copy side by side', rule('.org-card', 'background:\\s*var\\(--paper\\)') && rule('.org-card', 'grid-template-columns'));
+check('Organisations card', 'Stacked sticker badges on the picture', count(/<span>DGK AB<\/span>/g, org) === 3);
+check('Organisations card', 'Eyebrow, serif headline, services list and pill', /class="serif-xl"/.test(org) && count(/<li>/g, org) >= 5 && /class="pill/.test(org));
 
-// 5. Services
-const sv = section('services');
-check('Services', 'Wide picture card with overlaid heading and button', /class="banner-card"/.test(sv) && /class="big light"/.test(sv) && /class="btn"/.test(sv));
-check('Services', 'Three picture cards that stack while scrolling', count(/class="stack-card"/g, sv) === 3 && rule('.stack-card', 'position:\\s*sticky'));
+// 5. About
+const ab = section('about');
+check('About', 'Centred big headline and paragraph', /class="shout dark"/.test(ab) && rule('.about-inner', 'text-align:\\s*center'));
+check('About', 'Portrait with tilted sticker and pill', /class="about-media"/.test(ab) && /class="tilt-sticker"/.test(ab) && rule('.tilt-sticker', 'rotate') && /class="pill/.test(ab));
 
-// 6. Dark band
-const sd = section('standard');
-check('Dark band', 'Full-bleed dark picture with white heading, text and button', /class="standard-img"/.test(sd) && /class="big light"/.test(sd) && /<p>/.test(sd) && /class="btn"/.test(sd));
+// 6. Outcomes (reference: testimonials)
+const oc = section('outcomes');
+check('Outcomes', 'Dark band with eyebrow and centred serif headline', rule('.outcomes', 'background:\\s*var\\(--ink-deep\\)') && /class="serif-xl light center"/.test(oc));
+check('Outcomes', 'At least 5 coloured cards in a carousel with arrows', count(/<article class="outcome c\d"/g, oc) >= 5 && count(/data-scroll=/g, oc) === 2 && /scrollBy/.test(js));
+check('Outcomes', 'Cards describe outcomes, not invented client quotes', [...oc.matchAll(/class="big-quote">([^<]*)/g)].every((m) => !/[“”"]/.test(m[1])));
 
-// 7. Industries (reference: partners)
-const ind = section('industries');
-check('Industries', 'Heading and intro', /<h2 class="big"/.test(ind) && /class="lead/.test(ind));
-check('Industries', 'Picture with overlapping dark panel', /class="ind-img"/.test(ind) && /class="ind-panel"/.test(ind) && rule('.ind-panel', 'margin-bottom:\\s*-'));
-check('Industries', 'Four tabs with keyboard support', count(/role="tab"/g, ind) === 4 && count(/role="tabpanel"/g, ind) === 4 && /ArrowRight/.test(js));
+// 7. Gallery (reference: follow us)
+const gl = section('gallery');
+check('Gallery', 'Eyebrow + big headline', /class="eyebrow"/.test(gl) && /class="shout dark"/.test(gl));
+check('Gallery', 'Strip of 8 portrait pictures in a seamless marquee', count(/<img/g, gl) === 8 && /aspect-ratio:\s*235 \/ 314/.test(css) && /@keyframes marquee/.test(css) && /cloneNode/.test(js));
+check('Gallery', 'Pill below', /class="pill/.test(gl));
 
-// 8. Insights
-const ins = section('insights');
-check('Insights', 'Warm grey band', rule('.insights', 'background:\\s*var\\(--warm\\)'));
-check('Insights', 'Heading, button and prev/next arrows', /<h2 class="big">Insights\.<\/h2>/.test(ins) && /class="btn"/.test(ins) && count(/data-scroll=/g, ins) === 2 && /scrollBy/.test(js));
-check('Insights', 'Four picture cards in a carousel', count(/<article class="insight"/g, ins) === 4 && rule('.insight-track', 'overflow-x:\\s*auto'));
-
-// 9. Join
-const jn = section('join');
-check('Join', 'Oversized headline + button', /<h2 class="mega/.test(jn) && /class="btn"/.test(jn));
-check('Join', 'Fanned row of four pictures', count(/<img/g, (jn.match(/class="fan"[\s\S]*?<\/div>/) || [''])[0]) === 4 && /rotate\(-6deg\)/.test(css));
-
-// 10. Footer
+// 8. Footer
 const ft = section('footer');
-check('Footer', 'Gradient tunnel background in brand colours', /radial-gradient\([^)]*var\(--ink-deep\)[^;]*var\(--teal\)/.test(css));
-check('Footer', 'Closing line + button', /class="footer-title"/.test(ft) && /class="btn/.test(ft));
-check('Footer', 'Link columns', count(/<h4>/g, ft) >= 3);
-check('Footer', 'Giant wordmark', /class="wordmark"/.test(ft));
+check('Footer', 'Eyebrow, serif headline and call to action', /class="eyebrow"/.test(ft) && /class="serif-xl center"/.test(ft) && /class="pill pill-dark"/.test(ft));
+check('Footer', 'No fake signup form', !/<form|type="email"/.test(ft));
+check('Footer', 'Giant wordmark with a moving badge', /class="wordmark"/.test(ft) && /class="badge"/.test(ft) && /@keyframes wobble/.test(css));
+check('Footer', 'Copyright and privacy link', /©/.test(ft) && /Privacy/.test(ft));
 
-// Pictures: every picture slot of the reference has a new brand picture
+// Pictures
 const slots = imgs(html);
 const files = slots.map((i) => i.src);
 const allowed = new Set(['#1d2b44', '#142033', '#33476a', '#4f8a8b', '#8db7b5', '#d4e5e3', '#b8b0a6', '#d6d0c8', '#ebe7e2', '#8c857d', '#ffffff', '#fff', '#c9b8a3', '#b7a58f', '#e6f0f0',
   '#e9c8ab', '#c99b7a', '#8d5e44', '#f2d6c0', '#b07c5c', '#2b2522', '#6b4a35', '#bfa58a', '#3a2f2a', '#8a6a52']);
-check('Pictures', '24 picture slots filled', slots.length === 24 && imgs(hero).length === 1 && imgs(st).length === 6 && imgs(pil).length === 3 && imgs(sv).length === 4 && imgs(sd).length === 1 && imgs(ind).length === 1 && imgs(ins).length === 4 && imgs(jn).length === 4);
+check('Pictures', '14 picture slots filled (hero 1, offerings 3, card 1, about 1, gallery 8)', slots.length === 14 && imgs(hero).length === 1 && imgs(why).length === 3 && imgs(org).length === 1 && imgs(ab).length === 1 && imgs(gl).length === 8);
 check('Pictures', 'Every picture is a local file that exists', files.every((f) => /^images\/[\w-]+\.svg$/.test(f) && existsSync(join(root, f))));
 check('Pictures', 'Every picture is different', new Set(files).size === files.length);
 const offPalette = files.filter((f) => existsSync(join(root, f))).flatMap((f) =>
@@ -118,29 +109,29 @@ const offPalette = files.filter((f) => existsSync(join(root, f))).flatMap((f) =>
 check('Pictures', `Pictures use only the brand palette${offPalette.length ? ` (off: ${[...new Set(offPalette)].slice(0, 4).join(', ')})` : ''}`, offPalette.length === 0);
 check('Pictures', 'Each picture shows navy and teal', files.every((f) => /#1d2b44/i.test(read(f)) && /#4f8a8b/i.test(read(f))));
 check('Pictures', 'Pictures contain no text or logos', files.every((f) => !/<(text|image|use)\b/i.test(read(f))));
-check('Pictures', 'Every picture has an alt attribute; key pictures are described', slots.every((i) => i.alt !== null) && [...imgs(hero), ...imgs(pil), ...imgs(ind)].every((i) => i.alt.length > 10));
-check('Pictures', 'Pictures fill their slot (object-fit: cover)', count(/object-fit:\s*cover/g, css) >= 9);
-check('Pictures', 'Generator script is included', existsSync(join(root, 'tools', 'gen-images.mjs')));
-check('Pictures', 'No unused pictures in images/', existsSync(join(root, 'images')) && readdirSync(join(root, 'images')).every((n) => files.includes(`images/${n}`)));
+check('Pictures', 'Every picture has an alt attribute; content pictures are described', slots.every((i) => i.alt !== null) && [...imgs(org), ...imgs(ab), ...imgs(gl)].every((i) => i.alt.length > 10));
+check('Pictures', 'Every slot type fills with object-fit: cover', ['.hero-img', '.offer-card img', '.org-media img', '.about-media img', '.gallery img'].every((s) => rule(s, 'object-fit:\\s*cover')));
+check('Pictures', 'Generator writes exactly the pictures the page uses', /src="images/.test(read('tools/gen-images.mjs')) && existsSync(join(root, 'images')) && readdirSync(join(root, 'images')).sort().join() === [...new Set(files.map((f) => f.slice(7)))].sort().join());
 
 // Responsive + accessibility
 check('Responsive', 'Viewport meta', /name="viewport"/.test(html));
 check('Responsive', 'Tablet breakpoint (≤900px)', /@media \(max-width: 900px\)/.test(css));
 check('Responsive', 'Phone breakpoint (≤600px)', /@media \(max-width: 600px\)/.test(css));
 check('Responsive', 'Side gutter ≥16px', /--gutter:\s*clamp\(16px/.test(css) && rule('.wrap', 'padding-inline:\\s*var\\(--gutter\\)'));
-check('Responsive', 'Sticky and absolute layouts unpinned on small screens', /\.mosaic \.m\s*{[^}]*position:\s*static/.test(css) && /\.pillar-media\s*{[^}]*position:\s*relative/.test(css));
+check('Responsive', 'Split layouts stack on small screens', /\.why-grid\s*{\s*grid-template-columns:\s*1fr;/.test(css) && /\.org-card\s*{\s*grid-template-columns:\s*1fr;/.test(css));
+check('Accessibility', 'Content stays visible without JavaScript', /\.js \.fade-lines p\s*{/.test(css) && /\.js \.nav-links:not\(\.open\)/.test(css) && /classList\.add\('js'\)/.test(js));
 check('Accessibility', 'Reduced-motion support in CSS and JS', /prefers-reduced-motion/.test(css) && /prefers-reduced-motion/.test(js));
 check('Accessibility', 'Visible focus style', /:focus-visible/.test(css));
+check('Accessibility', 'Marquee copies hidden from screen readers', /aria-hidden/.test(js) && /copy\.alt = ''/.test(js));
 check('Accessibility', 'html lang set', /<html lang="/.test(html));
-check('Accessibility', 'Storage access guarded', /try\s*{\s*return sessionStorage/.test(js));
 
 // Originality: nothing copied from the reference sites
-const banned = ['Waabi', 'waabi.ai', 'Physical AI', 'Built to think', 'Born to haul', 'We built our own road', 'Unlocking scale', 'AV safety', 'Trusted by the best', 'just getting started',
-  'Volvo', 'Uber', 'NVIDIA', 'Warrior Logistics', 'Nils Jaeger', 'NeueHaas', 'Zagma', 'robotaxi',
-  'Jack', 'Jill', 'jackandjill', 'Tinker Tailor'];
+const banned = ['RIPE', 'get-ripe', 'Leadership is a lifestyle', 'Get Your Mind', 'Women\'s Leadership Intensive', 'GYMR', 'Megan', 'Eric', 'Matt Nurse', 'Allison Ellsworth', 'poppi', 'stay ripe',
+  'Leadership felt stale', 'aren\'t born', 'Bespoke Offsites', 'Leadership Labs', 'Nautic', 'SeriouslyNostalgic', 'Follow us',
+  'Waabi', 'Physical AI', 'Jack', 'Jill', 'jackandjill'];
 const all = html + css + js;
-const hits = banned.filter((w) => new RegExp(`\\b${w.replace(/[.,]/g, '\\$&')}\\b`, 'i').test(all));
-check('Originality', `No reference brand, people, partners, copy or fonts${hits.length ? ` (found: ${hits.join(', ')})` : ''}`, hits.length === 0);
+const hits = banned.filter((w) => new RegExp(`\\b${w.replace(/[.,']/g, '\\$&')}\\b`, w === 'RIPE' ? '' : 'i').test(all));
+check('Originality', `No reference brand, people, clients, copy or fonts${hits.length ? ` (found: ${hits.join(', ')})` : ''}`, hits.length === 0);
 check('Originality', 'No hotlinked images or media', !/<(img|video|source)[^>]+src="https?:/i.test(html));
 
 // Local files referenced actually exist
@@ -150,7 +141,7 @@ check('Files', 'All local references resolve', refs.length > 0 && refs.every((r)
 // Report
 const failed = checks.filter((c) => !c.ok);
 const groups = [...new Set(checks.map((c) => c.group))];
-let out = `# Remake report\n\nDGK AB site built on the layout of the waabi.ai home page. Brand, copy and pictures are DGK AB's own.\n\n`;
+let out = `# Remake report\n\nDGK AB site built on the layout of the get-ripe.com home page. Brand, copy and pictures are DGK AB's own.\n\n`;
 for (const g of groups) {
   out += `## ${g}\n\n`;
   for (const c of checks.filter((x) => x.group === g)) out += `- [${c.ok ? 'x' : ' '}] ${c.label}\n`;
